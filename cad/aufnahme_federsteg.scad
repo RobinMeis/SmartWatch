@@ -1,3 +1,6 @@
+//Getestet und funktionsfähig
+//TODO: Abstand der Nasen sollte vor Verwendung vergrößert werden
+
 $fn = 180;
 
 difference() {
