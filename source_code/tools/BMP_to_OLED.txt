@@ -1,0 +1,11 @@
+To convert a bitmap to a OLED Library compatible buffer array, follow the following steps:
+
+  1. Create an image (e.g in Gimp) with a dimension of 128x64
+  2. For black areas use white color, for white areas use black color
+  3. Disable Antialiasing. Normally it creates feather edges but this requires a display with variable pxiel settings
+  4. Save image as bmp
+  5. Use LCD Assistant (http://en.radzio.dxp.pl/bitmap_converter/) to convert the bitmap into an array
+     Size is 128x64
+     Byte orientation is Vertical
+     Pixels / Byte is 8
+  6. Insert the array instead of the current buffer array
