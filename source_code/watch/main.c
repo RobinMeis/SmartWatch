@@ -23,12 +23,11 @@ int main(void){
   draw_vertical(10,10,30,1);
   draw_line(0,20,100,40,1);
   draw_circle(100,50,10,1);
-  write_string("Hobbits sind klein", 1, 0);  
+  write_string("Hobbits sind klein", 1, 0, 30);
   OLED_display();
 
   usart_send_string("done\n");
   while (1) {
-
   }
   return 0;
 }
