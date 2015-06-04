@@ -7,23 +7,23 @@
 
 #include "libraries/usart.h"
 #include "libraries/oled.h"
+#include "libraries/font.h"
 
 int main(void){
   usart_init();
   usart_send_string("ready\n");
 
   OLED_Init();
-  OLED_display();
+  OLED_display(); //Boot screen
+  _delay_ms(500);
   OLED_clear();
-  OLED_set_pixel(0,0,1);
-  OLED_set_pixel(1,1,1);
-  OLED_set_pixel(2,2,1);
-  OLED_set_pixel(3,3,1);
-  OLED_set_pixel(4,4,1);
-  OLED_set_pixel(5,5,1);
-  OLED_set_pixel(6,6,1);
-  OLED_set_pixel(7,7,1);
+  OLED_display();
 
+  draw_horizontal(10, 10, 30, 1);
+  draw_vertical(10,10,30,1);
+  draw_line(0,20,100,40,1);
+  draw_circle(100,50,10,1);
+  write_string("Hobbits sind klein", 1, 0);  
   OLED_display();
 
   usart_send_string("done\n");
