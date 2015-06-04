@@ -54,3 +54,12 @@ void draw_circle(char x0, char y0, char radius, char state) {
     OLED_set_pixel(x0 - y, y0 - x, state);
   }
 }
+
+void draw_rectangle(char x, char y, char width, char height, char state) {
+  unsigned char yn;
+  width+=x;
+  height+=y;
+  for (; x < width; ++x)
+    for (yn=y; yn < height; ++yn)
+      OLED_set_pixel(x, yn, state);
+}
