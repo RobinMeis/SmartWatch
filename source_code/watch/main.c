@@ -19,11 +19,10 @@ int main(void){
   OLED_clear();
   OLED_display();
 
-  draw_horizontal(10, 10, 30, 1);
-  draw_vertical(10,10,30,1);
-  draw_line(0,20,100,40,1);
   draw_circle(100,50,10,1);
-  write_string("Hobbits sind klein", 1, 0, 30);
+  write_string("Hobbits sind klein", 1, 1, 0, 30);
+  write_string("17:17", 1, 3, 10,60);
+  draw_rectangle(160,10,10,10,1);
   OLED_display();
 
   usart_send_string("done\n");
