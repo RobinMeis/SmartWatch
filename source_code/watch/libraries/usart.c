@@ -17,7 +17,7 @@ void usart_send_char(unsigned char data) {
 }
 
 void usart_send_string(char* string) {
-  for(;*string != 0x00; string++)
+  for(;*string != 0x00; ++string)
     usart_send_char(*string);
 }
 
