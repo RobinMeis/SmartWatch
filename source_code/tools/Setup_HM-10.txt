@@ -1,0 +1,21 @@
+Setup for SmartWatch (peripherial mode)
+
+AT+NAMESmartWatch
+AT+PIO11
+AT+NOTI1
+AT+POWE????? //TODO: Find best signal strength
+AT+PASS123456 //TODO: Pair in Software with variable pin code
+AT+VERR? //TODO: Display in software
+AT+ADDR? //TODO: Display in software
+AT+ANCS1
+AT+RESET
+
+Setup as Host (for debugging and update purposes)
+
+AT+ROLE1
+AT+IMME1
+
+Connect to SmartWatch
+AT+PASS123456 //Pass of SmartWatch
+AT+DISC?
+AT+CONN<DEVICE 0-5>
