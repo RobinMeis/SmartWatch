@@ -151,10 +151,6 @@ void OLED_clear(void) {
     buffer[i] = 0;
 }
 
-void OLED_set_buffer(unsigned int index, unsigned char value) {
-  buffer[index] = value;
-}
-
 void OLED_display(void) {
   unsigned int i;
   unsigned char x;
