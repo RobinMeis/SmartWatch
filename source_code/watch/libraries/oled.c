@@ -4,7 +4,7 @@
 #include <util/delay.h>
 #include "i2cmaster.h" //Thanks to Peter Fleury for his I2C library (http://homepage.hispeed.ch/peterfleury/index.html)
 
-static uint8_t buffer[1024] = { //Values represent the boot screen
+static unsigned char buffer[1024] = { //Values represent the boot screen
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x80, 0xC0, 0xC0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF8, 0xF8, 0x78, 0x78, 0x78,
   0x78, 0x78, 0x78, 0xF8, 0xF0, 0xF0, 0xF0, 0xE0, 0xE0, 0xC0, 0xC0, 0x80, 0x00, 0x00, 0x00, 0x00,
@@ -140,8 +140,8 @@ void OLED_set_pixel(unsigned char x, unsigned char y, char state) { //Koordinate
     return;
 
   switch (state) {
-    case 0: buffer[x+ (y/8)*127] &= ~(1 << (y&7)); return; //Pixel off
-    case 1: buffer[x+ (y/8)*127] |=  (1 << (y&7)); return; //Pixel on
+    case 0: buffer[x+ (y/8)*128] &= ~(1 << (y&7)); return; //Pixel off
+    case 1: buffer[x+ (y/8)*128] |=  (1 << (y&7)); return; //Pixel on
   }
 }
 
@@ -149,6 +149,10 @@ void OLED_clear(void) {
   unsigned int i;
   for (i=0; i<1024; ++i)
     buffer[i] = 0;
+}
+
+void OLED_set_buffer(unsigned int index, unsigned char value) {
+  buffer[index] = value;
 }
 
 void OLED_display(void) {

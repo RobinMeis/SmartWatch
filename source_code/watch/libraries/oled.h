@@ -10,4 +10,5 @@ void OLED_off(void);
 void OLED_set_pixel(unsigned char x, unsigned char y, char state);
 void OLED_display(void);
 void OLED_clear(void);
+void OLED_set_buffer(unsigned int index, unsigned char value);
 #endif
