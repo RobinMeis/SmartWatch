@@ -1,5 +1,6 @@
 //TODO: Do every TODO in every file!
 //TODO: Check each header file for missing functions
+//TODO: Add description to libraries
 
 #define F_CPU 8000000UL //TODO: Set Global
 #define UART_BAUD_RATE 9600
@@ -11,13 +12,15 @@
 #include "libraries/uart.h"
 #include "libraries/oled.h"
 #include "libraries/font.h"
+#include "libraries/ancs.h"
+
 
 int main(void){
   OLED_Init();
   OLED_display(); //Boot screen
 
   unsigned int c;
-  unsigned char command[10], ok=0, index=0;
+  unsigned char *command[14], ok=0, index=0;
   //char buffer[7];
   //int  num=134;
   uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
@@ -49,6 +52,7 @@ int main(void){
             ok=0;
             command[0]='\0';
           }
+
         if (!strcmp(command, "CONN")) {
           draw_bluetooth(0,0,1);
           OLED_display();
