@@ -63,3 +63,17 @@ void draw_rectangle(char x, char y, char width, char height, char state) {
     for (yn=y; yn < height; ++yn)
       OLED_set_pixel(x, yn, state);
 }
+
+draw_bluetooth(char x, char y, char state) { //TODO: Use progmen instead of RAM
+  unsigned char i, n, symbol[5] = {12,20,37,22,12}; //symbol is mirrored at 5. value
+
+  for (i=0; i<5; ++i)
+    for (n=0; n<6; ++n)
+      if (symbol[i]& (1<<n))
+        OLED_set_pixel(x+n, y+i, state);
+
+  for (i=0; i<5; ++i)
+    for (n=0; n<6; ++n)
+      if (symbol[i]& (1<<n))
+        OLED_set_pixel(x+n, y+9-i, state);
+}
