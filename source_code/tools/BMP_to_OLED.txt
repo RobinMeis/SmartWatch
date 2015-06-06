@@ -8,4 +8,4 @@ To convert a bitmap to a OLED Library compatible buffer array, follow the follow
      Size is 128x64
      Byte orientation is Vertical
      Pixels / Byte is 8
-  6. Insert the array instead of the current buffer array
+  6. Insert the array instead of the current buffer array (Bootscreen is located in oled.c)
