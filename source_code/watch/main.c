@@ -23,11 +23,6 @@ int main(void){
   uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
   sei();
 
-  _delay_ms(500);
-
-  //OLED_clear();
-  OLED_display();
-
   //draw_circle(100,50,10,1);
   //write_string("Hobbits sind klein", 1, 1, 0, 30);
   //write_string("17:17", 1, 3, 10,60);
@@ -38,10 +33,9 @@ int main(void){
   while (1) {
     c = uart_getc();
     if (!(c & UART_NO_DATA)) {
-      if (c & UART_FRAME_ERROR || c & UART_OVERRUN_ERROR || c & UART_BUFFER_OVERFLOW) {}
-        //return 0; //I know, program chrashes. TODO: Add error handling
-      //uart_putc((unsigned char)c);
-
+      if (c & UART_FRAME_ERROR || c & UART_OVERRUN_ERROR || c & UART_BUFFER_OVERFLOW) {
+        //I know, program chrashes. TODO: Add error handling
+      }
       if (c!='+') {
         if (index>8) index=0; //Prevent command buffer overflow
 
@@ -59,31 +53,15 @@ int main(void){
           draw_bluetooth(0,0,1);
           OLED_display();
           index=0;
-        //} else if (!strcmp(command, "LOS")) {
         } else if (!strcmp(command, "LOST")) {
           draw_rectangle(0,0,7,10,0);
           OLED_display();
           index=0;
+        } else if (!strncmp(command, "ANCS", 4)) {
+          uart_puts(command);
         }
-        uart_putc(c);
       }
     }
-      /*if (c=='O') ok=1;
-      else if (ok==1)
-        if (c=='K') {
-          command[index-2] = '\0';
-          index=0;
-          uart_puts(command);
-          if (!strcmp(command, "CONN")) {
-            draw_bluetooth(0,0,1);
-            OLED_display();
-          }
-        } else ok=0;
-      //if (command[0] == 'L' && command[1] == 'O' && command[2] == 'S' && command[3] == 'T') {
-      if (!strcmp(command, "LOST")) {
-        draw_rectangle(0,0,7,10,0);
-        OLED_display();
-      }*/
   }
   return 0;
 }
