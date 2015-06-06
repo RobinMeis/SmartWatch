@@ -25,7 +25,7 @@ int main(void){
 
   _delay_ms(500);
 
-  OLED_clear();
+  //OLED_clear();
   OLED_display();
 
   //draw_circle(100,50,10,1);
@@ -33,7 +33,7 @@ int main(void){
   //write_string("17:17", 1, 3, 10,60);
   //draw_rectangle(160,10,10,10,1);
   //OLED_clear();
-  OLED_display();
+  //OLED_display();
 
   while (1) {
     c = uart_getc();
@@ -60,7 +60,7 @@ int main(void){
           OLED_display();
           index=0;
         //} else if (!strcmp(command, "LOS")) {
-        } else if (command[0]=='L'&&command[1]=='O'&&command[2]=='S'&&command[3]=='T') {
+        } else if (!strcmp(command, "LOST")) {
           draw_rectangle(0,0,7,10,0);
           OLED_display();
           index=0;
