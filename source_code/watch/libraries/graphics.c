@@ -1,9 +1,9 @@
-void draw_horizontal(unsigned char x, unsigned char y, unsigned char end, unsigned char state) { //x position, start y position, end y position, state of the pixel (on/off)
+void draw_vertical(unsigned char x, unsigned char y, unsigned char end, unsigned char state) { //x position, start y position, end y position, state of the pixel (on/off)
   for (; y<=end; ++y)
     OLED_set_pixel(x, y, state);
 }
 
-void draw_vertical(unsigned char y, unsigned char x, unsigned char end, unsigned char state) { //y position, start x position, end x position, state of the pixel (on/off)
+void draw_horizontal(unsigned char x, unsigned char y, unsigned char end, unsigned char state) { //y position, start x position, end x position, state of the pixel (on/off)
   for (; x<=end; ++x)
     OLED_set_pixel(x, y, state);
 }
@@ -64,7 +64,7 @@ void draw_rectangle(char x, char y, char width, char height, char state) {
       OLED_set_pixel(x, yn, state);
 }
 
-draw_bluetooth(char x, char y, char state) { //TODO: Use progmen instead of RAM
+void draw_bluetooth(char x, char y, char state) { //TODO: Use progmen instead of RAM
   unsigned char i, n, symbol[5] = {12,20,37,22,12}; //symbol is mirrored at 5. value
 
   for (i=0; i<5; ++i)
@@ -76,4 +76,18 @@ draw_bluetooth(char x, char y, char state) { //TODO: Use progmen instead of RAM
     for (n=0; n<6; ++n)
       if (symbol[i]& (1<<n))
         OLED_set_pixel(x+n, y+9-i, state);
+}
+
+void draw_battery(char x, char y, char state, char filled) {
+  draw_horizontal(x, y, x+11, 1);
+  draw_horizontal(x, y+7, x+11, 1);
+  draw_vertical(x, y, y+7, 1);
+  draw_vertical(x+11, y, y+7, 1);
+  draw_rectangle(x+12,y+1,2,6,1);
+
+  unsigned char n;
+  for (n=0, x+=2, y+=2; n<filled; ++n, x+=3) {
+    draw_rectangle(x,y,2,4,1);
+  }
+
 }

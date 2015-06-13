@@ -12,7 +12,7 @@
 #include "libraries/uart.h"
 #include "libraries/oled.h"
 #include "libraries/font.h"
-#include "libraries/ancs.h"
+//#include "libraries/ancs.h"
 
 
 int main(void){
@@ -20,18 +20,17 @@ int main(void){
   OLED_display(); //Boot screen
 
   unsigned int c;
-  unsigned char *command[14], ok=0, index=0;
+  unsigned char command[14], ok=0, index=0;
   //char buffer[7];
   //int  num=134;
-  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
+  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU));
   sei();
 
-  //draw_circle(100,50,10,1);
-  //write_string("Hobbits sind klein", 1, 1, 0, 30);
-  //write_string("17:17", 1, 3, 10,60);
-  //draw_rectangle(160,10,10,10,1);
-  //OLED_clear();
-  //OLED_display();
+  _delay_ms(250);
+  OLED_clear();
+  write_string("22:10", 1, 1, 49, 0);
+  draw_battery(112,0,1,3);
+  OLED_display();
 
   while (1) {
     c = uart_getc();
@@ -52,7 +51,7 @@ int main(void){
             ok=0;
             command[0]='\0';
           }
-
+        uart_puts("Processing");
         if (!strcmp(command, "CONN")) {
           draw_bluetooth(0,0,1);
           OLED_display();
@@ -62,6 +61,8 @@ int main(void){
           OLED_display();
           index=0;
         } else if (!strncmp(command, "ANCS", 4)) {
+          //uart_puts(command);
+        } else {
           uart_puts(command);
         }
       }
