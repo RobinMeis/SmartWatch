@@ -1,0 +1,18 @@
+http://www.jnhuamao.cn/showNews.asp?id=85
+
+Abfrage Datum
+ANCS:1420150630T185OK+ANCS:03417
+
+=> 2015.06.30 18:54:17
+
+Abfrage Titel / Inhalt
+Größe der Nachricht lesen
+ANCS0000400
+
+=> ANCSWOK+ANCS:0A18
+Größe ist 18
+
+18 wird als Länge gesetzt
+
+Title: AT+ANCS0000118
+Nachricht: AT+ANCS0000318
