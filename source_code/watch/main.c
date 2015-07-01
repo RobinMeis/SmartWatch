@@ -23,7 +23,7 @@ int main(void){
   unsigned char command[14], ok=0, index=0;
   //char buffer[7];
   //int  num=134;
-  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU));
+  uart_init(UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU));
   sei();
 
   _delay_ms(250);
@@ -32,6 +32,7 @@ int main(void){
   draw_battery(112,0,1,3);
   OLED_display();
 
+  uart_puts("Hey there, I'm ready!");
   while (1) {
     c = uart_getc();
     if (!(c & UART_NO_DATA)) {
