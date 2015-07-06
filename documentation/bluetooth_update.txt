@@ -1,0 +1,21 @@
+Normaler Ablauf
+
+1. Der Updatevorgang wird durch das verbundene Gerät initialisiert, indem es UPDATE sendet
+2. Die SmartWatch antwortet mit UPDATEWAIT und bereitet das Bluetooth Modul für den Updatevorgang vor. Dabei wird die Verbindung (mehrfach) getrennt
+3. Die SmartWatch wartet bis zur erneuten Verbindung und startet dann neu
+4. Der Bootloader meldet sich mit KAVR
+5. Nach dem Empfang von XON (HEX 11) kann die Übertragung begonnen werden
+    Bei XOFF (13) muss die Übertragung unterbrochen werden, und darf erst beim Empfang von XON fortgesetzt werden (FLOW Control)
+6. Nach dem Update startet die SmartWatch erneut das Betriebssystem
+7. Die Bluetooth Einstellungen werden wieder zurückgesetzt, anschließend ist die SmartWatch wieder einsatzbereit
+
+Update fehlgeschlagen
+
+Schlägt das Update fehl, und der Bootloader meldet sich nicht mehr, sollte zunächst folgendes versucht werden:
+  Eingabe von UPDATE über ein serielles Terminal
+    Wird mit UPDATEWAIT geantwortet und meldet sich der Bootloader anschließend wieder, kann das Update erneut aufgespielt werden
+    Bleibt die Antwort aus, so ist vermutlich das Programm nicht vollständig übertragen / geschrieben worden und es stürzt ab
+      In diesem Fall muss die SmartWatch geöffnet werden und der Reset schalter betätigt werden. Unter der Vorraussetzung einer bestehenden Bluetooth Verbindung sollte der Bootloader jetzt antworten und das Update erneut aufgespielt werden können
+      Schlägt auch dies Fehl, dann ist der Bootloader ebenfalls beschädigt worden
+         Zur Lösung muss ein ISP Programmer an die SPI Schnittstelle angeschlossen werden, der Flash gelöscht und anschließend der Bootloader erneut geflasht werden
+            Zu Analysezwecken empfiehlt es sich den Flashinhalt vorher in eine HEX Datei auszulesen
