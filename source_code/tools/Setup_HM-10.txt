@@ -8,6 +8,7 @@ AT+PASS123456 //TODO: Pair in Software with variable pin code
 AT+VERR? //TODO: Display in software
 AT+ADDR? //TODO: Display in software
 AT+ANCS1
+AT+TYPE3
 AT+RESET
 
 Setup as Host (for debugging and update purposes)

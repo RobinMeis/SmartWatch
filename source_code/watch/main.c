@@ -9,11 +9,12 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-#include "libraries/uart.h"
+#include "libraries/uart.h" //Libraries
 #include "libraries/oled.h"
 #include "libraries/font.h"
 //#include "libraries/ancs.h"
 
+#include "apps/update.h"
 
 int main(void){
   OLED_Init();
@@ -21,12 +22,20 @@ int main(void){
 
   unsigned int c;
   unsigned char command[14], ok=0, index=0;
+<<<<<<< HEAD
+  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU));
+=======
   //char buffer[7];
   //int  num=134;
   uart_init(UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU));
+>>>>>>> f3bf76ea46813b30149912593fd8afa566a056fe
   sei();
 
-  _delay_ms(250);
+  DDRD &= ~(1<<2); //Bluetooth state
+  PORTD|=(1<<2);
+  restore_bluetooth();
+
+  _delay_ms(1000);
   OLED_clear();
   write_string("22:10", 1, 1, 49, 0);
   draw_battery(112,0,1,3);
@@ -52,7 +61,7 @@ int main(void){
             ok=0;
             command[0]='\0';
           }
-        uart_puts("Processing");
+
         if (!strcmp(command, "CONN")) {
           draw_bluetooth(0,0,1);
           OLED_display();
@@ -63,6 +72,8 @@ int main(void){
           index=0;
         } else if (!strncmp(command, "ANCS", 4)) {
           //uart_puts(command);
+        } else if (!strcmp(command, "UPDATE")) {
+          update();
         } else {
           uart_puts(command);
         }

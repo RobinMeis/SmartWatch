@@ -1,3 +1,5 @@
+#include "font.h"
+
 void draw_vertical(unsigned char x, unsigned char y, unsigned char end, unsigned char state) { //x position, start y position, end y position, state of the pixel (on/off)
   for (; y<=end; ++y)
     OLED_set_pixel(x, y, state);
