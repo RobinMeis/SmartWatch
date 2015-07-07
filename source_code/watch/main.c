@@ -12,6 +12,7 @@
 #include "libraries/uart.h" //Libraries
 #include "libraries/oled.h"
 #include "libraries/font.h"
+#include "libraries/battery.h"
 //#include "libraries/ancs.h"
 
 #include "apps/update.h"
@@ -29,13 +30,17 @@ int main(void){
   PORTD|=(1<<2);
   restore_bluetooth();
 
+  battery_init();
+
   _delay_ms(1000);
   OLED_clear();
   write_string("22:10", 1, 1, 49, 0);
-  draw_battery(112,0,1,3);
   OLED_display();
 
   while (1) {
+    draw_battery(112,0,battery_get_bars());
+    OLED_display();
+
     c = uart_getc();
     if (!(c & UART_NO_DATA)) {
       if (c & UART_FRAME_ERROR || c & UART_OVERRUN_ERROR || c & UART_BUFFER_OVERFLOW) {

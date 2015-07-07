@@ -80,7 +80,7 @@ void draw_bluetooth(char x, char y, char state) { //TODO: Use progmen instead of
         OLED_set_pixel(x+n, y+9-i, state);
 }
 
-void draw_battery(char x, char y, char state, char filled) {
+void draw_battery(char x, char y, char bars) {
   draw_horizontal(x, y, x+11, 1);
   draw_horizontal(x, y+7, x+11, 1);
   draw_vertical(x, y, y+7, 1);
@@ -88,8 +88,9 @@ void draw_battery(char x, char y, char state, char filled) {
   draw_rectangle(x+12,y+1,2,6,1);
 
   unsigned char n;
-  for (n=0, x+=2, y+=2; n<filled; ++n, x+=3) {
+  for (n=0, x+=2, y+=2; n<bars; ++n, x+=3)//Draw filled bars
     draw_rectangle(x,y,2,4,1);
-  }
 
+  for (; n<3; ++n, x+=3) //Remove eventually existing bars
+    draw_rectangle(x,y,2,4,0);
 }
