@@ -30,6 +30,9 @@ int main(void){
   PORTD|=(1<<2);
   restore_bluetooth();
 
+  DDRB = 63; //Touch buttons
+  unsigned char port_b;
+
   battery_init();
 
   _delay_ms(1000);
@@ -40,6 +43,36 @@ int main(void){
   while (1) {
     draw_battery(112,0,battery_get_bars());
     OLED_display();
+
+    DDRB |= 63;//PB1 -> output
+    PORTB &= ~63;  //PB1 low -> sensor entladen
+    DDRB &= ~63; //PB1 -> input
+    PORTB |= 63;   //Sensor über internen Pull up laden
+    asm volatile("nop"); //wait 7CK = 0,4375µs @ 16MHz -> anpassen an Sensorfläche
+    asm volatile("nop");
+    asm volatile("nop");
+    asm volatile("nop");
+
+
+    port_b = PINB;
+    //Kapazität(Spannung am Sensor überprüfen
+    if(!(port_b & (1<<0)))
+      uart_puts("Button 0\n");
+    if(!(port_b & (1<<1)))
+      uart_puts("Button 1\n");
+    if(!(port_b & (1<<2)))
+      uart_puts("Button 2\n");
+    if(!(port_b & (1<<3)))
+      uart_puts("Button 3\n");
+    if(!(port_b & (1<<4)))
+      uart_puts("Button 4\n");
+    if(!(port_b & (1<<5)))
+      uart_puts("Button 5\n");
+
+    _delay_ms(25);
+    DDRB |= 63;//PB1 als output
+    PORTB &= ~63;  //PB1 auf Masse -> Sensor entladen
+    _delay_ms(10);
 
     c = uart_getc();
     if (!(c & UART_NO_DATA)) {
