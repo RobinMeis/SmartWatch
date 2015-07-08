@@ -4,8 +4,9 @@ Normaler Ablauf
 2. Die SmartWatch antwortet mit UPDATEWAIT und bereitet das Bluetooth Modul für den Updatevorgang vor. Dabei wird die Verbindung (mehrfach) getrennt
 3. Die SmartWatch wartet bis zur erneuten Verbindung und startet dann neu
 4. Der Bootloader meldet sich mit KAVR
+   Nur wenn zuvor UPDATEWAIT empfangen wurde, darf ein Update durchgeführt werden
 5. Nach dem Empfang von XON (HEX 11) kann die Übertragung begonnen werden
-    Bei XOFF (13) muss die Übertragung unterbrochen werden, und darf erst beim Empfang von XON fortgesetzt werden (FLOW Control)
+    Bei XOFF (HEX 13) muss die Übertragung unterbrochen werden, und darf erst beim Empfang von XON fortgesetzt werden (FLOW Control)
 6. Nach dem Update startet die SmartWatch erneut das Betriebssystem
 7. Die Bluetooth Einstellungen werden wieder zurückgesetzt, anschließend ist die SmartWatch wieder einsatzbereit
 

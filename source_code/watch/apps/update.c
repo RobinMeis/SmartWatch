@@ -1,5 +1,5 @@
 #define F_CPU 8000000UL
-
+//TODO: Move to libraries
 #include <util/delay.h>
 #include <avr/io.h>
 
@@ -8,7 +8,7 @@ void update(void) {
   write_string("Update", 1, 2, 49, 0);
   write_string("Vorbereitung", 1, 1, 0, 20);
   OLED_display();
-
+  uart_puts("UPDATEWAIT");
   uart_puts("AT");
   _delay_ms(500);
   uart_puts("AT+NOTI0");
