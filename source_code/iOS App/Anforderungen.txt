@@ -1,0 +1,11 @@
+Was soll ich einstellen können:
+-> Datum-Uhrzeit ändern (Verschiedene Zeitzonen ?)
+-> Ziffernblattdesign ändern 
+-> gesonderte Nachrichtensymbole ? (Anruf, SMS, Email, Whatsapp etc.)
+-> Position der einzelnen Anzeigen (machbar ?)
+
+Was soll die App bieten ?
+-> Einstellungsmöglichkeiten
+-> Nachrichtenkategorien, aussuchen worüber ich benachrichtigt werden will
+-> Art Appstore, für jeden offen neue Erweiterungen zu veröffentlichen 
+
