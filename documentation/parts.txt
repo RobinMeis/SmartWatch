@@ -1,1 +1,2 @@
 ? x Folienkondensator 100n RM 5mm http://www.reichelt.de/Wima-MKS-2/MKS-2-5-100N/3/index.html?ACTION=3&GROUPID=3153&ARTICLE=12349&OFFSET=500&WKID=0&
+2 x USB Stecker                       http://www.reichelt.de/USB-FireWire-Verbinder/USB-AGF/3/index.html?ACTION=3&GROUPID=5208&ARTICLE=52008&SEARCH=usb%20stecker&OFFSET=500&WKID=0&
