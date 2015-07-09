@@ -1,20 +1,12 @@
-translate([0,0,-10])
-color("blue")cube([42,36,4], true);
-//Akku
+//TODO: Datei sinnvoll umbennen
 
-$fn=100;
+$fn=100; //Decrease to increase rendering speed
 
-minkowski() {
-    color("Blue", 1) cube([23,23.4,1], center=true);
-    cylinder(r=2,h=0.01, center=true);
-}
-color("Grey", 1) translate([0,0,0.9]) cube([27,19.5,0.8], center=true);
-//Bildschirm
-translate([0,0,-5]) color("red")
-cube([40,35,10], true)
+use <module/oled.scad>;
+use <module/button.scad>;
+use <module/battery.scad>;
 
-translate([10,10,10])rotate([0,180,0])difference() {
-    cube([10,10,2.5], center=true);
-    translate([0,0,0.1]) 
-    cube([7,8,2.5], center=true);
-}//Taster
+translate([10,10,10]) rotate([0,180,0]) button();
+oled();
+translate([0,0,-10]) battery();
+translate([0,0,-5]) color("red") cube([40,35,10], true); //Electronics
