@@ -16,4 +16,4 @@ translate([-9,0,-4]) arduino();
 translate([9,0,-4]) bluetooth();
 //translate([-10,10,6]) charger();
 
-translate([0,0,-10]) battery();
+rotate([0,0,90]) translate([0,0,-10]) battery();
