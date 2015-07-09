@@ -58,7 +58,8 @@ module backplate() {
     }
 }
 
-translate([0,0,30]) unibody(); //Z=10
-translate([0,0,-10]) backplate();
-
-translate([0,0,15]) electronics();
+rotate([0,0,$t*360]) union() {
+    translate([0,0,30]) unibody(); //Z=10
+    translate([0,0,-10]) backplate();
+    translate([0,0,15]) electronics();
+}
