@@ -1,5 +1,3 @@
-//TODO: Datei sinnvoll umbennen
-
 $fn=100; //Decrease to increase rendering speed
 
 use <module/oled.scad>;
