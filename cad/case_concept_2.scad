@@ -32,6 +32,10 @@ module main_body() {
     cube([44.4,40.4,14], center=true);
     }
     translate([0,0,8])color("grey")cube([43.2,37.2,2], center=true);
+    translate([0,5,9])color("red")cube([27,19.5,0.8], center=true);
+    color("blue") translate([-11.5,-11.5,9])cube([10,10,2.5], center=true);
+    color("blue") translate([0,-11.5,9])cube([10,10,2.5], center=true);
+    color("blue")translate([11.5,-11.5,9])cube([10,10,2.5], center=true);
 }
 
 module unibody() {
