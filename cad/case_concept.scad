@@ -2,13 +2,13 @@ $fn=50;
 
 use<module/electronics.scad>
 
-//TODO: Materialdicke Schraubenlöcher rpüfen
+//TODO: Materialdicke Schraubenlöcher prüfen
 
 module armband() {
     minkowski() {
         difference() {
-            cube([10,5,5], center=true);
-            cube([8,4,6], center=true);
+            cube([30,5,5], center=true);
+            cube([28,4,6], center=true);
         }
         sphere(r=0.5);
     }
@@ -22,8 +22,20 @@ module main_body() {
             rotate([0,90,0]) cylinder(r=2, center=true);
         }
         translate([0,0,1]) cube([44.4,38.4,15], center=true); //Inner space
-        translate([0,0,10]) cube([26.5,19,10], center=true);
+        translate([0,0,10]) cube([43.2,37.2,10], center=true);
+        }
+    difference() {
+    cube([44.4,40.4,15], center=true);
+        translate([0,0,0.1])
+    cube([40.8,34.8,15], center=true);
+        translate([0,0,0.1])
+    cube([44.4,40.4,14], center=true);
     }
+    translate([0,0,8])color("grey")cube([43.2,37.2,2], center=true);
+    translate([0,5,9])color("red")cube([27,19.5,0.8], center=true);
+    color("blue") translate([-11.5,-11.5,9])cube([10,10,2.5], center=true);
+    color("blue") translate([0,-11.5,9])cube([10,10,2.5], center=true);
+    color("blue")translate([11.5,-11.5,9])cube([10,10,2.5], center=true);
 }
 
 module unibody() {
