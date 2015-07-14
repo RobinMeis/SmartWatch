@@ -1,6 +1,8 @@
 $fn=50;
 
 use<module/electronics.scad>
+use<module/button.scad>
+use<module/oled.scad>
 
 //TODO: Materialdicke Schraubenlöcher prüfen
 
@@ -23,19 +25,22 @@ module main_body() {
         }
         translate([0,0,1]) cube([44.4,38.4,15], center=true); //Inner space
         translate([0,0,10]) cube([43.2,37.2,10], center=true);
-        }
-    difference() {
-    cube([44.4,40.4,15], center=true);
-        translate([0,0,0.1])
-    cube([40.8,34.8,15], center=true);
-        translate([0,0,0.1])
-    cube([44.4,40.4,14], center=true);
+        translate([0,17,0]) cube([32,10,15], center=true);
     }
-    translate([0,0,8])color("grey")cube([43.2,37.2,2], center=true);
-    translate([0,5,9])color("red")cube([27,19.5,0.8], center=true);
-    color("blue") translate([-11.5,-11.5,9])cube([10,10,2.5], center=true);
-    color("blue") translate([0,-11.5,9])cube([10,10,2.5], center=true);
-    color("blue")translate([11.5,-11.5,9])cube([10,10,2.5], center=true);
+    
+    difference() {
+        cube([44.4,40.4,15], center=true);
+        translate([0,0,0.1]) cube([40.8,34.8,15], center=true);
+        translate([0,0,0.1])  cube([44.4,40.4,14], center=true);
+    }
+    
+    translate([0,7.3,5.8]) oled();
+    
+    translate([-11,-12,8.1]) button(); //Buttons
+    translate([0,-12,8.1])     button();
+    translate([11,-12,8.1])  button();
+    
+    translate([0,0,8])color("grey", 0.5) cube([43.2,37.2,2], center=true); //Glass
 }
 
 module unibody() {
@@ -71,7 +76,7 @@ module backplate() {
 }
 
 rotate([0,0,$t*360]) union() {
-    translate([0,0,30]) unibody(); //Z=10
-    translate([0,0,-10]) backplate();
-    translate([0,0,15]) electronics();
+    rotate([180,0,0]) translate([0,0,30]) unibody(); //Z=10
+    //translate([0,0,-10]) backplate();
+    //translate([0,0,15]) electronics();
 }
