@@ -3,12 +3,14 @@ Normaler Ablauf
 1. Der Updatevorgang wird durch das verbundene Gerät initialisiert, indem es UPDATE sendet
 2. Die SmartWatch antwortet mit UPDATEWAIT und bereitet das Bluetooth Modul für den Updatevorgang vor.
 3. Der Upadate client trennt die Verbindung und wartet mindestens 5 Sekunden bis zur erneuten Verbindung
+   Zur erhöhten Zuverlässigkeit, sollte die Verbindung durch den Nutzer widerhergestellt werden, nachdem eine entsprechende Meldung auf dem Display der SmartWatch erscheint
 4. Die SmartWatch wartet bis zur erneuten Verbindung und startet dann neu
 5. Der Bootloader meldet sich mit KAVR. Das Update muss nun schnellstmöglich gestartet werden
    Nur wenn zuvor UPDATEWAIT empfangen wurde, darf ein Update durchgeführt werden
 6. Das hex file der firmware wird zeilenweise übertragen, sofern flow control nicht genutzt wird. Wird stattdessen flow control genutzt, müssen Daten bei 0x11 gesendet werden und beo 0x13 pausiert werden, bis 0x11 gesendet wird.
 7. Nach dem Update startet die SmartWatch erneut das Betriebssystem
 8. Die Verbindung muss erneut für mindestens 5 Sekunden getrennt werden, damit das Bluetooth Modul die Einstellungen zurücksetzen kann
+   Zur erhöhten Zuverlässigkeit, sollte die Verbindung durch den Nutzer widerhergestellt werden, nachdem eine entsprechende Meldung auf dem Display der SmartWatch erscheint
 9. Die SmartWatch ist wieder bereit
 
 Update fehlgeschlagen
