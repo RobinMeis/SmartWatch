@@ -28,7 +28,17 @@ int main(void){
 
   DDRD &= ~(1<<2); //Bluetooth state
   PORTD|=(1<<2);
+  OLED_clear();
+  write_string("Verbindung", 1, 2, 49, 0);
+  write_string("trennen", 1, 1, 0, 20);
+  OLED_display();
+  while ((PIND & (1<<2))) {}
   restore_bluetooth();
+  OLED_clear();
+  write_string("Update", 1, 2, 49, 0);
+  write_string("abgeschlossen", 1, 1, 0, 20);
+  OLED_display();
+  _delay_ms(1000);
 
   DDRB = 63; //Touch buttons
   unsigned char port_b;
@@ -37,7 +47,7 @@ int main(void){
 
   _delay_ms(1000);
   OLED_clear();
-  write_string("22:10", 1, 1, 49, 0);
+  write_string("10:30", 1, 1, 49, 0);
   OLED_display();
 
   while (1) {

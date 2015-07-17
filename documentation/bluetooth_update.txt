@@ -1,21 +1,22 @@
 Normaler Ablauf
 
 1. Der Updatevorgang wird durch das verbundene Gerät initialisiert, indem es UPDATE sendet
-2. Die SmartWatch antwortet mit UPDATEWAIT und bereitet das Bluetooth Modul für den Updatevorgang vor. Dabei wird die Verbindung (mehrfach) getrennt
-3. Die SmartWatch wartet bis zur erneuten Verbindung und startet dann neu
-4. Der Bootloader meldet sich mit KAVR
+2. Die SmartWatch antwortet mit UPDATEWAIT und bereitet das Bluetooth Modul für den Updatevorgang vor.
+3. Der Upadate client trennt die Verbindung und wartet mindestens 5 Sekunden bis zur erneuten Verbindung
+4. Die SmartWatch wartet bis zur erneuten Verbindung und startet dann neu
+5. Der Bootloader meldet sich mit KAVR. Das Update muss nun schnellstmöglich gestartet werden
    Nur wenn zuvor UPDATEWAIT empfangen wurde, darf ein Update durchgeführt werden
-5. Nach dem Empfang von XON (HEX 11) kann die Übertragung begonnen werden
-    Bei XOFF (HEX 13) muss die Übertragung unterbrochen werden, und darf erst beim Empfang von XON fortgesetzt werden (FLOW Control)
-6. Nach dem Update startet die SmartWatch erneut das Betriebssystem
-7. Die Bluetooth Einstellungen werden wieder zurückgesetzt, anschließend ist die SmartWatch wieder einsatzbereit
+6. Das hex file der firmware wird zeilenweise übertragen, sofern flow control nicht genutzt wird. Wird stattdessen flow control genutzt, müssen Daten bei 0x11 gesendet werden und beo 0x13 pausiert werden, bis 0x11 gesendet wird.
+7. Nach dem Update startet die SmartWatch erneut das Betriebssystem
+8. Die Verbindung muss erneut für mindestens 5 Sekunden getrennt werden, damit das Bluetooth Modul die Einstellungen zurücksetzen kann
+9. Die SmartWatch ist wieder bereit
 
 Update fehlgeschlagen
 
 Schlägt das Update fehl, und der Bootloader meldet sich nicht mehr, sollte zunächst folgendes versucht werden:
-  Eingabe von UPDATE über ein serielles Terminal
-    Wird mit UPDATEWAIT geantwortet und meldet sich der Bootloader anschließend wieder, kann das Update erneut aufgespielt werden
-    Bleibt die Antwort aus, so ist vermutlich das Programm nicht vollständig übertragen / geschrieben worden und es stürzt ab
+  Flashen über das Python flash tool (siehe Ordner /source/tools)
+    Ist eine Widerhestellung möglich, wird die Firmware aufgespielt
+    Reagiert das tool nicht, so ist vermutlich das Programm nicht vollständig übertragen / geschrieben worden und es stürzt ab
       In diesem Fall muss die SmartWatch geöffnet werden und der Reset schalter betätigt werden. Unter der Vorraussetzung einer bestehenden Bluetooth Verbindung sollte der Bootloader jetzt antworten und das Update erneut aufgespielt werden können
       Schlägt auch dies Fehl, dann ist der Bootloader ebenfalls beschädigt worden
          Zur Lösung muss ein ISP Programmer an die SPI Schnittstelle angeschlossen werden, der Flash gelöscht und anschließend der Bootloader erneut geflasht werden
