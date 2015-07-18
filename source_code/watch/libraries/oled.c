@@ -139,6 +139,8 @@ void OLED_set_pixel(unsigned char x, unsigned char y, char state) { //Koordinate
   if (x > 127 || y > 63)
     return;
 
+  y=63-y;
+  x=127-x;
   switch (state) {
     case 0: buffer[x+ (y/8)*128] &= ~(1 << (y&7)); return; //Pixel off
     case 1: buffer[x+ (y/8)*128] |=  (1 << (y&7)); return; //Pixel on
