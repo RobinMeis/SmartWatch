@@ -3,8 +3,9 @@ $fn=50;
 use<module/electronics.scad>
 use<module/button.scad>
 use<module/oled.scad>
+use<module/charger.scad>
 
-//TODO: Materialdicke Schraubenlöcher prüfen
+//TODO: Dicke bodenplatte prüfen
 
 module armband() {
     minkowski() {
@@ -76,7 +77,8 @@ module backplate() {
 }
 
 rotate([0,0,$t*360]) union() {
-    rotate([180,0,0]) translate([0,0,30]) unibody(); //Z=10
-    //translate([0,0,-10]) backplate();
-    //translate([0,0,15]) electronics();
+    translate([0,0,38]) electronics();
+    translate([0,0,25]) charger();
+    translate([0,0,70]) unibody(); //Z=30
+    translate([0,0,40]) translate([0,0,-10]) backplate();
 }
