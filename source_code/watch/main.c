@@ -26,7 +26,7 @@ int main(void){
   uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU));
   sei();
 
-  DDRD &= ~(1<<2); //Bluetooth state
+  /*DDRD &= ~(1<<2); //Bluetooth state
   PORTD|=(1<<2);
   OLED_clear();
   write_string("Verbindung", 1, 2, 49, 0);
@@ -38,16 +38,35 @@ int main(void){
   write_string("Update", 1, 2, 49, 0);
   write_string("abgeschlossen", 1, 1, 0, 20);
   OLED_display();
-  _delay_ms(1000);
+  _delay_ms(1000);*/
 
   DDRB = 63; //Touch buttons
   unsigned char port_b;
 
   battery_init();
 
-  _delay_ms(1000);
+  //_delay_ms(1000);
   OLED_clear();
   write_string("10:30", 1, 1, 49, 0);
+
+  draw_notification_symbol(0,0,10,1);
+  draw_notification_symbol(1,15,10,1);
+  draw_notification_symbol(2,31,10,1);
+  draw_notification_symbol(3,47,10,1);
+  draw_notification_symbol(4,63,10,1);
+  draw_notification_symbol(5,79,10,1);
+  draw_notification_symbol(6,95,10,1);
+  draw_notification_symbol(7,111,10,1);
+
+
+  draw_notification_symbol(8,0,30,1);
+  draw_notification_symbol(9,15,30,1);
+  draw_notification_symbol(10,31,30,1);
+
+
+
+
+
   OLED_display();
 
   while (1) {
