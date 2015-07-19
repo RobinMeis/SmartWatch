@@ -2,6 +2,7 @@
 #include "font.h"
 
 //TODO: correct parameters of functions in header!
+//TODO: CHECK indention in all files
 
 void write_character(unsigned int character, unsigned char size, unsigned char x, unsigned char y) {
   unsigned int end;
@@ -10,7 +11,7 @@ void write_character(unsigned int character, unsigned char size, unsigned char x
   if (character > 126)
     return;
 
-  if (size==1) { //saves time
+  if (size==1) { //saves time TODO: klammern erforderlich? check in all files!
     for (character=character*5, end = character + 5; character<end; ++character, ++x) {
       byte = pgm_read_byte(&font[character]);
       for (bit=0; bit<8; ++bit)
