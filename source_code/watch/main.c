@@ -9,7 +9,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-#include "libraries/uart.h" //Libraries
+#include "libraries/uart.h"
 #include "libraries/oled.h"
 #include "libraries/font.h"
 #include "libraries/battery.h"
@@ -17,13 +17,36 @@
 
 #include "apps/update.h"
 
+volatile unsigned char date[5] = {1,25,29,20,7}; // hour, minute, seconds, day, month, i know, unix timestamp could have benn used here but is completely nonsense in this case
+volatile unsigned short year = 2015; //TODO: Change to bithdate of first watch!
+
+ISR (TIMER1_COMPA_vect) {
+  if (date[2] == 59) {
+    date[2] = 0;
+    if (date[1] == 59) {
+      date[1] = 0;
+      if (date[0] == 23)
+        date[0] = 0;
+        //TODO: increment date
+      else
+        ++date[0];
+    } else
+      ++date[1];
+  } else
+    ++date[2];
+}
+
 int main(void){
   OLED_Init();
   OLED_display(); //Boot screen
 
-  unsigned int c;
+	OCR1A = 7812;
+	TCCR1B = (1<<CS12)|(1<<CS10)|(1<<WGM12);
+	TIMSK1 |= (1<<OCIE1A);
+
+  unsigned int c; //UART TODO: Rename variable
   unsigned char command[14], ok=0, index=0;
-  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU));
+  uart_init(UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU));
   sei();
 
   /*DDRD &= ~(1<<2); //Bluetooth state
@@ -73,7 +96,10 @@ int main(void){
     draw_battery(112,0,battery_get_bars());
     OLED_display();
 
-    DDRB |= 63;//PB1 -> output
+    display_time(&date, 32, 0);
+
+
+    /*DDRB |= 63;//PB1 -> output
     PORTB &= ~63;  //PB1 low -> sensor entladen
     DDRB &= ~63; //PB1 -> input
     PORTB |= 63;   //Sensor über internen Pull up laden
@@ -101,7 +127,7 @@ int main(void){
     _delay_ms(25);
     DDRB |= 63;//PB1 als output
     PORTB &= ~63;  //PB1 auf Masse -> Sensor entladen
-    _delay_ms(10);
+    _delay_ms(10);*/
 
     c = uart_getc();
     if (!(c & UART_NO_DATA)) {

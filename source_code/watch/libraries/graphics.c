@@ -123,3 +123,27 @@ void draw_notification_symbol(unsigned char category, unsigned char x_start, uns
       if (pgm_read_word(&notification_symbols[category])& (1<<x))
         OLED_set_pixel(x+x_start, y+y_start, state);
 }
+
+void display_time(unsigned char *date, unsigned char x, unsigned char y) {
+  unsigned char i, buffer[3];
+  draw_rectangle(x,y,63,7,0);
+  for (i=0; i<3; ++i) {
+
+    if (date[i] < 10) {
+      write_string("0 ", 1, 1, x, y);
+      x+=7;
+      itoa(date[i],buffer,10);
+      write_string(buffer, 1, 1, x, y);
+      x+=7;
+    } else {
+      itoa(date[i],buffer,10);
+      write_string(buffer, 1, 1, x, y);
+      x+=14;
+    }
+
+    if (i<2) {
+      write_string(":", 1, 1, x, y);
+      x+=7;
+    }
+  }
+}
