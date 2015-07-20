@@ -47,6 +47,20 @@ void clock_init() {
 	TIMSK1 |= (1<<OCIE1A);
 }
 
+void set_time(unsigned char hour, unsigned char minute, unsigned char second) {
+  date[0] = hour;
+  date[1] = minute;
+  date[2] = second;
+}
+
+void set_time_value(unsigned char index, unsigned char value) {
+  date[index]=value;
+}
+
+void set_year(unsigned short value) {
+  year=value;
+}
+
 void display_time(unsigned char x, unsigned char y) {
   unsigned char i, buffer[3];
   draw_rectangle(x,y,63,7,0);
