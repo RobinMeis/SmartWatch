@@ -13,44 +13,25 @@
 #include "libraries/oled.h"
 #include "libraries/font.h"
 #include "libraries/battery.h"
+#include "libraries/clock.h"
+
 //#include "libraries/ancs.h"
 
 #include "apps/update.h"
-
-volatile unsigned char date[5] = {1,25,29,20,7}; // hour, minute, seconds, day, month, i know, unix timestamp could have benn used here but is completely nonsense in this case
-volatile unsigned short year = 2015; //TODO: Change to bithdate of first watch!
-
-ISR (TIMER1_COMPA_vect) {
-  if (date[2] == 59) {
-    date[2] = 0;
-    if (date[1] == 59) {
-      date[1] = 0;
-      if (date[0] == 23)
-        date[0] = 0;
-        //TODO: increment date
-      else
-        ++date[0];
-    } else
-      ++date[1];
-  } else
-    ++date[2];
-}
 
 int main(void){
   OLED_Init();
   OLED_display(); //Boot screen
 
-	OCR1A = 7812;
-	TCCR1B = (1<<CS12)|(1<<CS10)|(1<<WGM12);
-	TIMSK1 |= (1<<OCIE1A);
+  clock_init();
 
   unsigned int c; //UART TODO: Rename variable
   unsigned char command[14], ok=0, index=0;
   uart_init(UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU));
   sei();
 
-  /*DDRD &= ~(1<<2); //Bluetooth state
-  PORTD|=(1<<2);
+  DDRD &= ~(1<<2); //Bluetooth state
+  /*PORTD|=(1<<2);
   OLED_clear();
   write_string("Verbindung", 1, 2, 49, 0);
   write_string("trennen", 1, 1, 0, 20);
@@ -70,7 +51,6 @@ int main(void){
 
   //_delay_ms(1000);
   OLED_clear();
-  write_string("10:30", 1, 1, 49, 0);
 
   draw_notification_symbol(0,0,10,1);
   draw_notification_symbol(1,15,10,1);
@@ -80,23 +60,19 @@ int main(void){
   draw_notification_symbol(5,79,10,1);
   draw_notification_symbol(6,95,10,1);
   draw_notification_symbol(7,111,10,1);
-
-
   draw_notification_symbol(8,0,30,1);
   draw_notification_symbol(9,15,30,1);
   draw_notification_symbol(10,31,30,1);
-
-
-
-
 
   OLED_display();
 
   while (1) {
     draw_battery(112,0,battery_get_bars());
     OLED_display();
+    OLED_clear();
 
-    display_time(&date, 32, 0);
+    display_time(32, 0);
+    display_date(0, 30);
 
 
     /*DDRB |= 63;//PB1 -> output
