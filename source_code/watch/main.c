@@ -13,7 +13,6 @@
 #include "libraries/battery.h"
 #include "libraries/clock.h"
 #include "libraries/bluetooth.h"
-//#include "libraries/ancs.h"
 
 #include "apps/update.h"
 

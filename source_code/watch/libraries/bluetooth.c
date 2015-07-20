@@ -5,9 +5,10 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "uart.h"
+#include "ancs.h"
 
 unsigned int c;
-unsigned char command[14], ok=0, buffer_index=0;
+unsigned char command[15], ok=0, buffer_index=0;
 
 void bluetooth_init(void) {
   DDRD &= ~(1<<2); //State pin
@@ -56,12 +57,12 @@ void parse_transmission() {
     if (c=='+')
       buffer_reset();
     else {
-      if (buffer_index>12) buffer_index=0; //Prevent command buffer overflow
+      if (buffer_index>13) buffer_index=0; //Prevent command buffer overflow
 
       command[buffer_index] = c;
       command[++buffer_index] = '\0';
 
-      if (c=='O') ok=1; //Skip unsupported commands
+      if (c=='O') ok=1; //Skip unsupported commands TODO: This does not work at the moment. Fix!
       else if (ok==1)
         if (c=='K') {
           buffer_reset();
@@ -75,6 +76,7 @@ void parse_transmission() {
         draw_rectangle(0,0,7,10,0);
         OLED_display();
         buffer_reset();
+        //TODO: Reset ANCS storage
       } else if (find_command("TIME:",5,11)) {
         char value[2];
 
@@ -90,7 +92,7 @@ void parse_transmission() {
         value[1] = command[10];
         set_time_value(2, atoi(value));
         buffer_reset();
-      } else if (find_command("DATE:",5,13)) {
+      } else if (find_command("DATE:",5,14)) {
         char value[4];
 
         value[0] = command[5];
@@ -107,8 +109,10 @@ void parse_transmission() {
         value[3] = command[12];
         set_year(atoi(value));
         buffer_reset();
-      } else if (!strncmp(command, "ANCS", 4)) {
-        //uart_puts(command);
+      } else if (find_command("ANCS8",5,13)) {
+        uart_puts("hi");
+
+        ancs_parse(&command);
         buffer_reset();
       } else if (!strcmp(command, "UPDATE")) {
         update();
