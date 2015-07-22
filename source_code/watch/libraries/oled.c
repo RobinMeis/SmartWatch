@@ -79,11 +79,11 @@ void OLED_Stop(void) {
   i2c_stop();
 }
 
-void OLED_Write(uint8_t data) {
+void OLED_Write(unsigned char data) {
   i2c_write(data);
 }
 
-void OLED_Command(uint8_t command) { //Function for sending a normal command
+void OLED_Command(unsigned char command) { //Function for sending a normal command
   OLED_Start();
   OLED_Write(0x00);
   OLED_Write(command);
