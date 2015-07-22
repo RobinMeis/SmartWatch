@@ -21,7 +21,7 @@ void bluetooth_reset(void) {
   write_string("Verbindung", 1, 2, 49, 0);
   write_string("trennen", 1, 1, 0, 20);
   OLED_display();
-  while ((PIND & (1<<2))) {}
+  while ((PIND & (1<<2))) {} //TODO: Remove brackets
   restore_bluetooth();
   OLED_clear();
   write_string("Update", 1, 2, 49, 0);
@@ -62,22 +62,15 @@ void parse_transmission() {
       command[buffer_index] = c;
       command[++buffer_index] = '\0';
 
-      if (c=='O') ok=1; //Skip unsupported commands TODO: This does not work at the moment. Fix!
-      else if (ok==1)
-        if (c=='K') {
-          buffer_reset();
-        }
-
-      if (!strcmp(command, "CONN")) {
-        draw_bluetooth(0,0,1);
+      /*if (!strcmp(command, "CONN")) {
+        /*draw_bluetooth(0,0,1);
         OLED_display();
         buffer_reset();
       } else if (!strcmp(command, "LOST")) {
-        draw_rectangle(0,0,7,10,0);
+        /*draw_rectangle(0,0,7,10,0);
         OLED_display();
         buffer_reset();
-        //TODO: Reset ANCS storage
-      } else if (find_command("TIME:",5,11)) {
+      } else*/ if (find_command("TIME:",5,11)) {
         char value[2];
 
         value[0] = command[5];
@@ -110,13 +103,20 @@ void parse_transmission() {
         set_year(atoi(value));
         buffer_reset();
       } else if (find_command("ANCS8",5,13)) {
-        uart_puts("hi");
-
         ancs_parse(&command);
         buffer_reset();
       } else if (!strcmp(command, "UPDATE")) {
         update();
-      } else {
+      }
+      else if (!strcmp(command, "touch1")) set_touch_byte(36);
+      else if (!strcmp(command, "touch2")) set_touch_byte(68);
+      else if (!strcmp(command, "touch3")) set_touch_byte(132);
+      else if (!strcmp(command, "long1")) set_touch_byte(34);
+      else if (!strcmp(command, "long2")) set_touch_byte(66);
+      else if (!strcmp(command, "long3")) set_touch_byte(130);
+      else if (!strcmp(command, "scroll_left")) set_touch_byte(8);
+      else if (!strcmp(command, "scroll_right")) set_touch_byte(16);
+      else {
         //uart_puts(command);
       }
     }

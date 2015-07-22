@@ -42,7 +42,7 @@ int main(void){
   draw_notification_symbol(10,31,30,1);
 
   OLED_display();
-
+  app_controller();
   while (1) {
     draw_battery(112,0,battery_get_bars());
     OLED_display();
