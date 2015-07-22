@@ -13,8 +13,8 @@
 #include "libraries/battery.h"
 #include "libraries/clock.h"
 #include "libraries/bluetooth.h"
-
-#include "apps/update.h"
+#include "libraries/update.h"
+#include "libraries/app_controller.h"
 
 int main(void){
   OLED_Init();

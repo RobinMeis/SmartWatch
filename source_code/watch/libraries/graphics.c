@@ -123,3 +123,13 @@ void draw_notification_symbol(unsigned char category, unsigned char x_start, uns
       if (pgm_read_word(&notification_symbols[category])& (1<<x))
         OLED_set_pixel(x+x_start, y+y_start, state);
 }
+
+void draw_headline() {
+  if(PIND & (1<<2))
+    draw_bluetooth(0,0,1);
+  else
+    draw_rectangle(0,0,7,10,0);
+
+  draw_battery(112,0,battery_get_bars());
+  display_time(32, 0);
+}
