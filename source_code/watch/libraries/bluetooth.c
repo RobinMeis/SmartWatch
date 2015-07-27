@@ -50,7 +50,7 @@ unsigned char find_command(unsigned char *find, unsigned char matching, unsigned
 
 void parse_transmission() {
   c = uart_getc();
-  if (!(c & UART_NO_DATA)) {
+  if (!(c & UART_NO_DATA)) { //TODO: Remove brackets
     if (c & UART_FRAME_ERROR || c & UART_OVERRUN_ERROR || c & UART_BUFFER_OVERFLOW) {
       //I know, program chrashes. TODO: Add error handling
     }
