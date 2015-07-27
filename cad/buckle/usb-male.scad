@@ -14,8 +14,8 @@ module usb_plug() {
     cube([12,30,4.5], center=true); //Y=14.8
     translate([-5.44,-8.4,-0.6]) cube([1.2,2.5,5.7], center=true);
     translate([5.44,-8.4,-0.6]) cube([1.2,2.5,5.7], center=true);
-    translate([3.5,-10,0]) rotate([90,0,0]) cylinder(r=0.7,h=20, center=true);
-    translate([-3.5,-10,0]) rotate([90,0,0]) cylinder(r=0.7,h=20, center=true);
+    translate([3.5,-15,0]) rotate([90,0,0]) cylinder(r=0.7,h=20, center=true);
+    translate([-3.5,-15,0]) rotate([90,0,0]) cylinder(r=0.7,h=20, center=true);
 }
 
 module usb_difference() {
