@@ -24,12 +24,15 @@ module usb_difference() {
     }
 }
 
-//armband();
 //translate([0,9.5,0.5]) color("silver",0.5) usb_plug();
 difference() {
     union() {
-        color("red", 0.3) cube([14,14,7.5], center=true);
+        color("red") minkowski() {
+            cube([13.5,13.5,7], center=true);
+            sphere(r=0.25);
+        }
         translate([0,13,0]) cube([5,5,7.5], center=true);
+        translate([0,-8.75,-1]) armband();
     }
     translate([0,9.5,0.5]) usb_difference();
     translate([0,13,5]) cube([6,6,7.5], center=true);
