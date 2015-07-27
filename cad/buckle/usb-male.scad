@@ -7,7 +7,7 @@ module armband() {
         sphere(r=0.25);
     }
 }
-$fn=45;
+$fn=180;
 
 module usb_plug() {
     cube([12,30,4.5], center=true); //Y=14.8
