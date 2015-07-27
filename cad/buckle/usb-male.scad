@@ -29,7 +29,7 @@ module usb_difference() {
 difference() {
     union() {
         color("red") minkowski() {
-            cube([13,13,6.5], center=true);
+            cube([17.5,13,6.5], center=true);
             sphere(r=0.5);
         }
         translate([0,13,0]) cube([5,5,7.5], center=true);
