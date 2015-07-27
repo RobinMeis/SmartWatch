@@ -1,13 +1,4 @@
-module armband() {
-    minkowski() {
-        difference() {
-            cube([30,5,5], center=true);
-            cube([28,4,6], center=true);
-        }
-        sphere(r=0.25);
-    }
-}
-$fn=180;
+$fn=45;
 
 module usb_plug() {
     cube([12,30,4.5], center=true); //Y=14.8
@@ -32,7 +23,7 @@ difference() {
             sphere(r=0.25);
         }
         translate([0,13,0]) cube([5,5,7.5], center=true);
-        translate([0,-8.75,-1]) armband();
+        //translate([0,-8.75,-1]) armband();
     }
     translate([0,9.5,0.5]) usb_difference();
     translate([0,13,5]) cube([6,6,7.5], center=true);
