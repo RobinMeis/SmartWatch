@@ -1,4 +1,4 @@
-$fn=45;
+$fn=180;
 
 module armband() {
     minkowski() {
