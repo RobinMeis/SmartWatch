@@ -1,4 +1,5 @@
-$fn=50;
+$fn=10;
+$preview=false;
 
 use<module/electronics.scad>
 use<module/button.scad>
@@ -33,13 +34,15 @@ module main_body() {
         translate([0,0,0.1])  cube([44.4,40.4,14], center=true);
     }
     
-    translate([0,7.3,5.8]) oled();
-    
-    translate([-11,-12,8.1]) button(); //Buttons
-    translate([0,-12,8.1])     button();
-    translate([11,-12,8.1])  button();
-    
-    translate([0,0,8])color("grey", 0.5) cube([43.2,37.2,2], center=true); //Glass
+    if ($preview) {
+        translate([0,7.3,5.8]) oled();
+        
+        translate([-11,-12,8.1]) button(); //Buttons
+        translate([0,-12,8.1])     button();
+        translate([11,-12,8.1])  button();
+        
+        translate([0,0,8])color("grey", 0.5) cube([43.2,37.2,2], center=true); //Glass
+    }
 }
 
 module unibody() {
@@ -81,8 +84,13 @@ module backplate() {
 }
 
 rotate([0,0,$t*360]) union() {
-    translate([0,0,38]) electronics();
-    translate([0,0,25]) charger();
-    translate([0,0,70]) unibody(); //Z=30
-    translate([0,0,40]) translate([0,0,-10]) backplate();
+    if ($preview) {
+        translate([0,0,38]) electronics();
+        translate([0,0,25]) charger();
+        translate([0,0,70]) unibody(); //Z=30
+        translate([0,0,40]) translate([0,0,-10]) backplate();
+    } else {
+        rotate([180,0,0]) unibody();
+        translate([0,0,-10]) backplate();
+    }
 }
