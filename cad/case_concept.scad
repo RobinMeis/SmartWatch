@@ -1,4 +1,4 @@
-$fn=10;
+$fn=180;
 $preview=false;
 
 use<module/electronics.scad>
