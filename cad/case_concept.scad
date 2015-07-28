@@ -5,12 +5,10 @@ use<module/button.scad>
 use<module/oled.scad>
 use<module/charger.scad>
 
-//TODO: Dicke bodenplatte prüfen
-
 module armband() {
     minkowski() {
         difference() {
-            cube([30,5,5], center=true);
+            cube([30,5.5,5], center=true);
             cube([28,4,6], center=true);
         }
         sphere(r=0.5);
@@ -46,16 +44,22 @@ module main_body() {
 
 module unibody() {
     difference() {
-        main_body();
-        translate([0,0,-8]) cube([50,50,5], center=true);
-        translate([20,21,-1]) cylinder(h=10,d=2.1, center=true);
-        translate([-20,21,-1]) cylinder(h=10,d=2.1, center=true);
-        translate([20,-21,-1]) cylinder(h=10,d=2.1, center=true);
-        translate([-20,-21,-1]) cylinder(h=10,d=2.1, center=true);
+        union() {
+            difference() {
+                main_body();
+                translate([0,0,-8]) cube([50,50,5], center=true);
+                translate([20,21,-1]) cylinder(h=10,d=2.1, center=true);
+                translate([-20,21,-1]) cylinder(h=10,d=2.1, center=true);
+                translate([20,-21,-1]) cylinder(h=10,d=2.1, center=true);
+                translate([-20,-21,-1]) cylinder(h=10,d=2.1, center=true);
+            }
+            
+            translate([0,-25.5,-2.5]) armband();
+            translate([0,25.5,-2.5]) armband();
+        }
+    translate([3.5,20,-2.5]) rotate([90,0,0]) cylinder(r=0.7,h=20, center=true); //Holes cables
+    translate([-3.5,20,-2.5]) rotate([90,0,0]) cylinder(r=0.7,h=20, center=true);
     }
-    
-    translate([0,-25.5,-2.5]) armband();
-    translate([0,25.5,-2.5]) armband();
 }
 
 module backplate() {
